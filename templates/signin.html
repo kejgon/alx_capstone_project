@@ -1,0 +1,62 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Budget Tracker</title>
+
+</head>
+
+<body>
+
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='doughzen.png') }}" width="100">
+            <p>Budget Tracker</p>
+        </div>
+    </div>
+
+
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+
+        <ul>
+
+            <li style="float:right"><a href="signup.html"><i class="fa fa-sign-up"></i>Sign Up</a></li>
+        </ul>
+    </div>
+
+    <!------------------------Main Menu------------------------>
+    <!-------------------------------------------------------->
+
+
+    <div class="section">
+        <div class="container">
+            <h2>Sign in</h2>
+            <form action="#" method="post">
+
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <input type="submit" value="Sign in">
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <p><strong>© Budget Tracker - all right and reserved</strong></p>
+
+    </div>
+</body>
+
+</html>

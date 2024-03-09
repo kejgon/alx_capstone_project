@@ -1,0 +1,491 @@
+    /* applies to all elements,
+making sure that any padding or borders added to an element are included in its total width and height. */
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Work Sans', sans-serif;
+        text-align: center;
+        margin: 0;
+    }
+
+    /* these elements will be floated to the left side of their container */
+    .header,
+    .navbar,
+    .section,
+    .footer {
+        float: left;
+        width: 100%;
+        /* The width is 100%, by default */
+    }
+
+    .header {
+        height: 100;
+        background-color: #fff;
+    }
+
+    .header .logo img {
+        float: left;
+    }
+
+    .header .logo p {
+        float: left;
+        font-size: 30px;
+        color: #74E291;
+        padding-left: 0;
+    }
+
+
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        /*  hides any content that goes beyond the boundaries of the ul element. */
+        background-color: #74E291;
+    }
+
+    .navbar li {
+        float: left;
+        border-right: 1px solid #03C988;
+    }
+
+    .navbar li:last-child {
+        border-right: none;
+        /* property removes the right border of the last li element. */
+    }
+
+    .navbar li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-weight: bold;
+
+
+    }
+
+    .navbar li a:hover:not(.active) {
+        background-color: #03C988;
+    }
+
+    .navbar .active {
+        background-color: #03C988;
+    }
+
+
+
+    /***********************Menu**************************/
+    /*****************************************************/
+
+
+    /* Tells the browser to use the Flexbox layout for all elements within that container.*/
+    /* Flexbox layout for row */
+    .row {
+        display: flex;
+    }
+
+    /* Left column (menu) */
+    .left {
+        flex: 15%;
+        margin: 0px;
+    }
+
+    /* Style for h2 element in left column */
+    .left h2 {
+        background-color: #fff;
+        margin: 0;
+        padding: 10px 0 10px 0;
+    }
+
+    /* Right column (page content) */
+    .right {
+        flex: 85%;
+        padding: 15px;
+    }
+
+    /* Vertical menu style */
+    nav.vertical {
+        position: relative;
+        background: #74E291;
+        text-align: left;
+        border-bottom-left-radius: 10px;
+
+    }
+
+    /* Style for all ul elements in vertical menu */
+    nav.vertical ul {
+        list-style: none;
+        margin: 0;
+    }
+
+    /* Style for all li elements in vertical menu */
+    nav.vertical li {
+        position: relative;
+    }
+
+    /* Style for all a elements in vertical menu */
+    nav.vertical a {
+        display: block;
+        color: #eee;
+        text-decoration: none;
+        padding: 10px 15px;
+        transition: 0.2s;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    /* Style for a elements when hovering over li element in vertical menu */
+    nav.vertical li:hover>a {
+        background: #03C988;
+        border-bottom-left-radius: 10px;
+
+    }
+
+    /* Hide inner ul elements in vertical menu */
+    nav.vertical ul ul {
+        background: rgba(0, 0, 0, 0.1);
+        transition: max-height 0.2s ease-out;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    /* Show inner ul elements in vertical menu when hovering over li element */
+    nav.vertical li:hover>ul {
+        max-height: 500px;
+        transition: max-height 0.25s ease-in;
+        border-bottom-left-radius: 10px;
+
+    }
+
+    /* Style for each row */
+    .row {
+        margin-bottom: 5px;
+        padding-bottom: 10px;
+        position: relative;
+    }
+
+    /* Style for h3 elements */
+    h3 {
+        background-color: #03C988;
+        text-align: left;
+        padding: 10px;
+    }
+
+    /* Style for labels */
+    label {
+        color: #FFF;
+        display: inline-block;
+        width: 100px;
+        font-size: 1rem;
+    }
+
+    table {
+        font-weight: bold;
+    }
+
+    /* This sets the styles for the "status" table cell */
+    td.status {
+        padding: 5px;
+        font-weight: bold;
+    }
+
+    /* These styles apply when the table cell has the class "approved" */
+    td.approved {
+        background-color: #009EFF;
+        color: white;
+    }
+
+    /* These styles apply when the table cell has the class "rejected" */
+    td.rejected {
+        background-color: #EB1D36;
+        color: white;
+    }
+
+    /* These styles apply when the table cell has the class "pending" */
+    td.pending {
+        background-color: #FFE15D;
+    }
+
+
+
+
+    /* This clears the float on the row element */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* This sets the styles for the table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* This sets the styles for odd rows in the table */
+    tr:nth-of-type(odd) {
+        background: none;
+    }
+
+    /* This sets the styles for the table headers */
+    th {
+        background: #333;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* This sets the styles for table cells */
+    td,
+    th {
+        padding: 6px;
+        border: 1px solid #ccc;
+        text-align: left;
+        font-size: 12px;
+    }
+
+    /* This sets the styles for "status" table cells */
+    td.status {
+        padding: 5px;
+        font-weight: bold;
+    }
+
+    /* These styles apply when the table cell has the class "approved" */
+    td.approved {
+        background-color: #009EFF;
+        color: white;
+    }
+
+    /* These styles apply when the table cell has the class "rejected" */
+    td.rejected {
+        background-color: #EB1D36;
+        color: white;
+    }
+
+    /* These styles apply when the table cell has the class "pending" */
+    td.pending {
+        background-color: #FFE15D;
+    }
+
+
+    .clearance-form {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        margin-bottom: 50px;
+        border: 1px solid #000;
+        padding: 20px;
+    }
+
+    .row {
+        color: #fff;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .box1 {
+        float: left;
+        width: 20%;
+        background-color: #FC7300;
+        height: 100;
+        margin: 10px;
+        padding: 20px 40px;
+        border-radius: 10px;
+    }
+
+    .box2 {
+        float: left;
+        width: 20%;
+        background-color: #6B728E;
+        height: 100;
+        margin: 10px;
+        padding: 20px 40px;
+        border-radius: 10px;
+
+
+    }
+
+    .box3 {
+        float: left;
+        width: 20%;
+        background-color: #009EFF;
+        height: 100;
+        margin: 10px;
+        padding: 20px 40px;
+        border-radius: 10px;
+
+
+    }
+
+    .box4 {
+        float: left;
+        width: 20%;
+        background-color: #D2001A;
+        height: 100;
+        margin: 10px;
+        padding: 20px 40px;
+
+    }
+
+    .box1:hover {
+        transition: cubic-bezier(0.23, 1, 0.320, 1);
+        box-shadow: 2px 4px 3px 2px rgba(0, 0, 0, 0.28);
+    }
+
+    .box2:hover {
+        transition: cubic-bezier(0.23, 1, 0.320, 1);
+        box-shadow: 4px 2px 3px rgba(0, 0, 0, 0.24);
+    }
+
+    .box3:hover {
+        transition: cubic-bezier(0.23, 1, 0.320, 1);
+        box-shadow: 4px 2px 3px rgba(0, 0, 0, 0.24);
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* These media queries apply when the screen width is 768px or less */
+    @media screen and (max-width: 768px) {
+
+        /* These styles apply to elements with the "left", "main", or "right" classes */
+        .left,
+        .main,
+        .right {
+            width: 100%;
+        }
+
+        /* These styles apply to the "logo" element within the "header" element */
+        .header .logo p {
+            float: left;
+            font-size: 20px;
+            padding-top: 25px;
+
+        }
+
+        /* This changes the display of the "row" element to "contents" */
+        .row {
+            display: contents;
+        }
+
+        .box1,
+        .box2,
+        .box3,
+        .box4 {
+            width: 100%;
+            margin-top: 0;
+        }
+    }
+
+
+    /* Add some basic styling for better presentation */
+    .container {
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.24);
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding-bottom: 50px;
+    }
+
+    label {
+        width: auto;
+        float: left;
+
+        display: block;
+        margin-bottom: 5px;
+        color: black;
+
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #2a7197;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #1aaaf7;
+    }
+
+    /* Style the footer */
+    .footer {
+        position: fixed;
+        /* Fix the position of the footer */
+        left: 0;
+        /* Set the left edge of the footer to the left edge of the screen */
+        bottom: 0;
+        /* Set the bottom edge of the footer to the bottom of the screen */
+        width: 100%;
+        /* Set the width of the footer to 100% of the screen */
+        background-color: #74E291;
+        /* Set the background color */
+        color: white;
+        /* Set the font color */
+        text-align: center;
+        /* Align the text to the center */
+
+    }
+
+
+    @media screen and (max-width: 600px) {
+
+        .box1,
+        .box2,
+        .box3,
+        .box4 {
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 0;
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Zebra striping */
+    tr:nth-of-type(odd) {
+        background: none;
+    }
+
+    th {
+        background: #333;
+        color: white;
+        font-weight: bold;
+    }
+
+    td,
+    th {
+        padding: 6px;
+        border: 1px solid #ccc;
+        text-align: left;
+        font-size: 12px;
+    }
