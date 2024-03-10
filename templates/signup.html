@@ -33,7 +33,7 @@
 
         <ul>
 
-            <li style="float:right"><a href="signin.html"><i class="fa fa-sign-out"></i>Sign in</a></li>
+            <li style="float:right"><a href="{{ url_for('signin') }}"><i class="fa fa-sign-out"></i>Sign in</a></li>
         </ul>
     </div>
 
@@ -43,7 +43,7 @@
 
     <div class="section">
         <div class="container">
-            <h2>Register</h2>
+            <h2>Sign up</h2>
             <form action="{{ url_for('signup') }}" method="POST">
                 <div>
                     <label for="username">Username:</label>
@@ -62,7 +62,6 @@
                     <select id="gender" name="gender" required>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                        <option value="other">Other</option>
                     </select>
                 </div>
                 <div>

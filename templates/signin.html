@@ -29,7 +29,7 @@
 
         <ul>
 
-            <li style="float:right"><a href="signup.html"><i class="fa fa-sign-up"></i>Sign Up</a></li>
+            <li style="float:right"><a href="{{ url_for('signup') }}"><i class="fa fa-sign-up"></i>Sign Up</a></li>
         </ul>
     </div>
 
@@ -40,16 +40,19 @@
     <div class="section">
         <div class="container">
             <h2>Sign in</h2>
-            <form action="#" method="post">
-
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-
-                <input type="submit" value="Sign in">
+            {% if error_message %}
+            <p style="color: red;">{{ error_message }}</p>
+            {% endif %}
+            <form action="{{ url_for('signin') }}" method="POST">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Sign in</button>
             </form>
         </div>
     </div>
