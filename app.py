@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, abort
 from flask_mysqldb import MySQL
 import bcrypt
 
@@ -77,10 +77,13 @@ def signup():
         return redirect(url_for('index'))
 
     return render_template('signup.html')
+
+    
 # Route to display the budget page
 @app.route('/budget')
 def budget():
     if 'username' in session:
+        username = session['username']  # Retrieve the username from the session
         # Retrieve the user_id from the session
         user_id = session.get('user_id')
 
@@ -91,7 +94,7 @@ def budget():
         cur.close()
 
         # Pass both username and budget data to the template
-        return render_template('budget.html', budget_data=budget_data)
+        return render_template('budget.html', username=username,budget_data=budget_data)
     else:
         # Redirect to the sign-in page if not logged in
         return redirect(url_for('signin'))
@@ -114,7 +117,7 @@ def add_item():
         mysql.connection.commit()
         cur.close()
         return redirect(url_for('budget'))
-# Route to edit a budget item
+    
 @app.route('/edit_item/<int:item_id>', methods=['GET', 'POST'])
 def edit_item(item_id):
     if request.method == 'POST':
@@ -122,7 +125,7 @@ def edit_item(item_id):
         new_amount = request.form['new_amount']
         new_type = request.form['new_type']
         # Update data in the database
-        cur = mysql.connection.cursor()
+        cur = mysql.connection.cursor(dictionary=True)  # Fetch items as dictionaries
         cur.execute("UPDATE budget SET category = %s, amount = %s, type = %s WHERE id = %s",
                     (new_category, new_amount, new_type, item_id))
         mysql.connection.commit()
@@ -130,12 +133,15 @@ def edit_item(item_id):
         return redirect(url_for('budget'))
     else:
         # Fetch the item to be edited from the database
-        cur = mysql.connection.cursor()
+        cur = mysql.connection.cursor(dictionary=True)  # Fetch items as dictionaries
         cur.execute("SELECT * FROM budget WHERE id = %s", (item_id,))
         item = cur.fetchone()
         cur.close()
         return render_template('edit_item.html', item=item)
 
+
+
+    
 # Route to delete a budget item
 @app.route('/delete_item/<int:item_id>')
 def delete_item(item_id):

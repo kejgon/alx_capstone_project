@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Budget Item</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<style>
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Budget Item</h2>
+            <form id="editForm" method="post" action="{{ url_for('edit_item', item_id=item.id) }}">
+                <label for="new_category">Category:</label>
+                <input type="text" id="new_category" name="new_category" value="{{ item.category }}" required>
+                <label for="new_amount">Amount:</label>
+                <input type="number" id="new_amount" name="new_amount" value="{{ item.amount }}" required>
+                <select id="new_type" name="new_type">
+                    <option value="income" {% if item.type=='income' %} selected {% endif %}>Income</option>
+                    <option value="expense" {% if item.type=='expense' %} selected {% endif %}>Expense</option>
+                    <option value="saving" {% if item.type=='saving' %} selected {% endif %}>Saving</option>
+                </select>
+                <button type="submit">Update Item</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById('editModal');
+        var span = document.getElementsByClassName("close")[0];
+
+        function openModal(itemId) {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
