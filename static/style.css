@@ -390,7 +390,7 @@ making sure that any padding or borders added to an element are included in its 
         margin-bottom: 100px;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.24);
+        box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.54);
     }
 
     form {
@@ -411,7 +411,10 @@ making sure that any padding or borders added to an element are included in its 
 
     input[type="text"],
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="date"],
+    input[type="number"],
+    select {
         width: 100%;
         padding: 8px;
         margin-bottom: 10px;
@@ -420,18 +423,17 @@ making sure that any padding or borders added to an element are included in its 
         box-sizing: border-box;
     }
 
-    input[type="submit"] {
-        background-color: #2a7197;
+    .button {
+        background-color: #74E291;
         color: white;
         padding: 10px 20px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        float: right;
     }
 
-    input[type="submit"]:hover {
-        background-color: #1aaaf7;
+    .button:hover {
+        background-color: #03C988;
     }
 
     /* Style the footer */

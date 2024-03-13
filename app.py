@@ -158,7 +158,7 @@ def logout():
     # Clear the session data
     session.pop('username', None)
     # Redirect to the sign-in page
-    return redirect(url_for('signin'))
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

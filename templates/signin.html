@@ -17,7 +17,8 @@
     <!-- HEADER -->
     <div class="header">
         <div class="logo">
-            <img src="{{ url_for('static', filename='doughzen.png') }}" width="100">
+            <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='doughzen.png') }}"
+                    width="100"></a>
             <p>Budget Tracker</p>
         </div>
     </div>
@@ -29,7 +30,9 @@
 
         <ul>
 
-            <li style="float:right"><a href="{{ url_for('signup') }}"><i class="fa fa-sign-up"></i>Sign Up</a></li>
+            <li style="float:left"><a href="{{ url_for('index') }}">Home</a></li>
+            <li style="float:right"><a href="{{ url_for('signup') }}"><i class="fa fa-user-plus" aria-hidden="true"></i>
+                    Sign Up</a></li>
         </ul>
     </div>
 
@@ -39,7 +42,8 @@
 
     <div class="section">
         <div class="container">
-            <h2>Sign in</h2>
+            <h2>
+                Sign in</h2>
             {% if error_message %}
             <p style="color: red;">{{ error_message }}</p>
             {% endif %}
@@ -52,7 +56,8 @@
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <button type="submit">Sign in</button>
+                <button class="button" type="submit"><i class="fa fa-sign-in" width="50" aria-hidden="true"></i> Sign
+                    in</button>
             </form>
         </div>
     </div>
