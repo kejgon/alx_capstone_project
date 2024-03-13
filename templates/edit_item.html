@@ -52,18 +52,19 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Edit Budget Item</h2>
-            <form id="editForm" method="post" action="{{ url_for('edit_item', item_id=item.id) }}">
-                <label for="new_category">Category:</label>
-                <input type="text" id="new_category" name="new_category" value="{{ item.category }}" required>
-                <label for="new_amount">Amount:</label>
-                <input type="number" id="new_amount" name="new_amount" value="{{ item.amount }}" required>
+            <form id="editItemForm" action="{{ url_for('edit_item', item_id=item[0]) }}" method="post">
+                <label for="new_category">New Category:</label>
+                <input type="text" id="new_category" name="new_category" value="{{ item['category'] }}" required>
+                <label for="new_amount">New Amount:</label>
+                <input type="number" id="new_amount" name="new_amount" value="{{ item['amount'] }}" required>
                 <select id="new_type" name="new_type">
-                    <option value="income" {% if item.type=='income' %} selected {% endif %}>Income</option>
-                    <option value="expense" {% if item.type=='expense' %} selected {% endif %}>Expense</option>
-                    <option value="saving" {% if item.type=='saving' %} selected {% endif %}>Saving</option>
+                    <option value="income" {% if item['type']=='income' %} selected {% endif %}>Income</option>
+                    <option value="expense" {% if item['type']=='expense' %} selected {% endif %}>Expense</option>
+                    <option value="saving" {% if item['type']=='saving' %} selected {% endif %}>Saving</option>
                 </select>
-                <button type="submit">Update Item</button>
+                <button class="button" type="submit">Update Item</button>
             </form>
+
         </div>
     </div>
 

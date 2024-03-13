@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,9 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
     <title>Budget Tracker</title>
-
 </head>
 
 <style>
@@ -47,6 +46,18 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    .success {
+        color: #0bf95e;
+        font-size: medium;
+    }
+
+    .delete {
+        color: red;
+        font-size: medium;
+
+        /* Add any other styles as needed */
+    }
 </style>
 
 <body>
@@ -64,9 +75,7 @@
 
     <!-- NAVBAR -->
     <div class="navbar">
-
         <ul>
-
             <li style="float:right"><a href="{{ url_for('logout') }}"><i class="fa fa-sign-in" style="color:red"></i>
                     Logout</a></li>
         </ul>
@@ -88,22 +97,12 @@
                 <nav class="vertical" style="margin-top: 0px;">
                     <ul>
                         <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-dashboard"></i>
-
                                 Dashboard</a></li>
                         <li><a href="{{ url_for('budget') }}"><i class="fa fa-exchange" aria-hidden="true"></i>
                                 Budgets</a> </li>
                         <li><a href="#"><i class="fa fa-book"></i> Reports</a>
-                            <ul>
-                                <li><a haref="#">Cleared Students</a></li>
-                                <li><a href="">Uncleared Students</a></li>
-                            </ul>
                         </li>
                         <li><a href="#"><i class="fa fa-user-o"></i> Profile</a>
-                            <ul>
-                                <li><a href="viewprofile.php">View profile</a></li>
-                                <li><a href="employeeupdates.php">Profile updates</a></li>
-
-                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -126,15 +125,26 @@
                         <option value="expense">Expense</option>
                         <option value="saving">Saving</option>
                     </select>
-                    <button class="button" type="submit">Add Item</button>
+                    <button class="button" type="submit"><i class="fa fa-plus-square" aria-hidden="true"
+                            style="font-size: 20px;"></i> Add</button>
                 </form>
 
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <div class="{{ category }}{% if category == 'delete' %}{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
 
+                <!-- Your existing HTML content here -->
 
                 <!-- Display area for budget data -->
-                <div id="budgetData">
+                <div id="budgetData" style="color: #000;">
                     <h2>Budget Data</h2>
-                    <table style="margin-bottom: 100px;">
+                    <table style="margin-bottom: 100px; color: #000;">
                         <thead>
                             <tr>
                                 <th>Category</th>
@@ -147,30 +157,107 @@
                         <tbody>
                             {% for item in budget_data %}
                             <tr>
-                                <td>{{ item[2] }}</td> <!-- Accessing the category -->
-                                <td>{{ item[3] }}</td> <!-- Accessing the amount -->
-                                <td>{{ item[4] }}</td> <!-- Accessing the type -->
+                                <td id="category_{{ item[0] }}">{{ item[2] }}</td> <!-- Accessing the category -->
+                                <td id="amount_{{ item[0] }}">{{ item[3] }}</td> <!-- Accessing the amount -->
+                                <td id="type_{{ item[0] }}">{{ item[4] }}</td> <!-- Accessing the type -->
                                 <td>{{ item[5] }}</td> <!-- Accessing the date -->
                                 <td>
-                                    <a href="{{ url_for('edit_item', item_id=item[0]) }}">Edit</a> |
-                                    <a href="{{ url_for('delete_item', item_id=item[0]) }}">Delete</a>
+                                    <a href="#" class="editBtn" onclick="openEditModal('{{ item[0] }}')"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"
+                                            style="font-size: 20px;"></i>
+                                    </a>|
+                                    <a href="{{ url_for('delete_item', item_id=item[0]) }}"><i
+                                            class="fa fa-times delete" aria-hidden="true" style="font-size: 20px;"></i>
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
 
+
+                </div>
+
+                <!-- Edit Modal -->
+                <div id="editModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeEditModal()">&times;</span>
+                        <h2>Edit Budget Item</h2>
+                        <form id="editForm" method="post">
+                            <label for="new_category">Category:</label>
+                            <input type="text" id="new_category" name="new_category" required>
+                            <label for="new_amount">Amount:</label>
+                            <input type="number" id="new_amount" name="new_amount" required>
+                            <select id="new_type" name="new_type">
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                            </select>
+                            <button class="button" type="submit" onclick="updateItem()">Update Item</button>
+                        </form>
+                    </div>
                 </div>
 
             </div>
-
         </div>
-
 
         <div class="footer">
             <p><strong>© Budget Tracker - all right and reserved</strong></p>
-
         </div>
+    </div>
+
+    <script>
+        function openEditModal(itemId) {
+            var modal = document.getElementById('editModal');
+            modal.style.display = "block";
+            // Fetch the item data using itemId and fill the form fields
+            var category = document.getElementById('category_' + itemId).innerText;
+            var amount = document.getElementById('amount_' + itemId).innerText;
+            var type = document.getElementById('type_' + itemId).innerText;
+
+            document.getElementById('new_category').value = category;
+            document.getElementById('new_amount').value = amount;
+            document.getElementById('new_type').value = type;
+
+            // Set a data attribute on the form to store the item ID
+            document.getElementById('editForm').setAttribute('data-item-id', itemId);
+
+            // Set the action attribute of the form to include the item_id in the URL
+            document.getElementById('editForm').action = "/edit_item/" + itemId;
+        }
+
+        function closeEditModal() {
+            var modal = document.getElementById('editModal');
+            modal.style.display = "none";
+        }
+
+
+        function updateItem() {
+            // Get the item ID from the form data attribute
+            var itemId = document.getElementById('editForm').getAttribute('data-item-id');
+
+            // Create a new FormData object
+            var formData = new FormData(document.getElementById('editForm'));
+
+            // Send an AJAX request to update the item
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', "/edit_item/" + itemId, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Item updated successfully, close the modal
+                        closeEditModal();
+                        // Optionally, you can update the item in the UI without refreshing the page
+                    } else {
+                        // Display an error message if update fails
+                        alert('Failed to update item');
+                    }
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+
+
 </body>
 
 </html>

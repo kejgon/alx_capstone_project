@@ -54,22 +54,12 @@
                 <nav class="vertical" style="margin-top: 0px;">
                     <ul>
                         <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-dashboard"></i>
-
                                 Dashboard</a></li>
                         <li><a href="{{ url_for('budget') }}"><i class="fa fa-exchange" aria-hidden="true"></i>
                                 Budgets</a> </li>
                         <li><a href="#"><i class="fa fa-book"></i> Reports</a>
-                            <ul>
-                                <li><a haref="#">Cleared Students</a></li>
-                                <li><a href="">Uncleared Students</a></li>
-                            </ul>
                         </li>
                         <li><a href="#"><i class="fa fa-user-o"></i> Profile</a>
-                            <ul>
-                                <li><a href="viewprofile.php">View profile</a></li>
-                                <li><a href="employeeupdates.php">Profile updates</a></li>
-
-                            </ul>
                         </li>
                     </ul>
                 </nav>
@@ -84,20 +74,18 @@
 
                 <div class="row">
                     <div class="box1">
-                        <p>Total incomes:</p>
-
+                        <p>Total Income: {{ total_income }}</p>
                     </div>
                     <div class="box2">
-                        <p>Total Expenses:</p>
-
+                        <p>Total Expenses: {{ total_expenses }}</p>
                     </div>
                     <div class="box3">
-                        <p>Remaining Balance:</p>
-
+                        <p>Remaining Balance: {{ remaining_balance }}</p>
                     </div>
-
+                    <div class="box4">
+                        <p>Total Saving: {{ total_saving }}</p>
+                    </div>
                 </div>
-
 
 
             </div>
