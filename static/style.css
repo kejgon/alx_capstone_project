@@ -223,6 +223,7 @@ making sure that any padding or borders added to an element are included in its 
     table {
         width: 100%;
         border-collapse: collapse;
+        margin-bottom: 20px;
     }
 
     table,

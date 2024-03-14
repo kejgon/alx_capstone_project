@@ -184,7 +184,7 @@ def add_item():
                     (user_id, category, amount, item_type))
         mysql.connection.commit()
         cur.close()
-        
+        flash("Budget item added successfully.", 'success')
         return redirect(url_for('budget'))
     
 @app.route('/edit_item/<int:item_id>', methods=['GET', 'POST'])
@@ -368,6 +368,7 @@ def update_profile():
         mysql.connection.commit()
         cur.close()
         
+        flash("Profile updated successfully.", 'success')  # Add success flash message
         # Redirect to profile page after updating
         return redirect(url_for('profile'))
     else:

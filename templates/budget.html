@@ -134,6 +134,8 @@
                 {% for category, message in messages %}
                 <div class="{{ category }}{% if category == 'delete' %}{% endif %}" role="alert">
                     {{ message }}
+                    <hr>
+
                 </div>
                 {% endfor %}
                 {% endif %}
