@@ -5,6 +5,7 @@ from decimal import Decimal
 
 from flask_mysqldb import MySQL
 import bcrypt
+from networkx import generate_adjlist
 
 app = Flask(__name__)
 
@@ -134,6 +135,25 @@ def add_item():
         item_type = request.form['type']
         user_id = session.get('user_id')  # Retrieve user_id from session
         
+        if item_type == 'expense':
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT SUM(amount) FROM budget WHERE user_id = %s AND type = 'income'", (user_id,))
+            total_income = cur.fetchone()[0]
+            cur.close()
+            
+            if total_income is None or total_income == 0:
+                flash("Cannot add expense. No income available.", 'delete')
+                return redirect(url_for('budget'))
+            
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT SUM(amount) FROM budget WHERE user_id = %s AND type = 'expense'", (user_id,))
+            total_expense = cur.fetchone()[0]
+            cur.close()
+            
+            if total_expense is not None and amount > total_income - total_expense:
+                flash("Cannot add expense. Expense amount exceeds available income.", 'delete')
+                return redirect(url_for('budget'))
+        
         # Deduct saving from the total income if it's a saving item
         if item_type == 'saving':
             cur = mysql.connection.cursor()
@@ -166,7 +186,6 @@ def add_item():
         cur.close()
         
         return redirect(url_for('budget'))
-
     
 @app.route('/edit_item/<int:item_id>', methods=['GET', 'POST'])
 def edit_item(item_id):
@@ -211,20 +230,67 @@ def logout():
     # Redirect to the sign-in page
     return render_template('index.html')
 
-
 @app.route('/reports', methods=['GET', 'POST'])
 def reports():
+    if 'username' in session:
+        username = session['username']  # Retrieve the username from the session
+        
+        if request.method == 'POST':
+            # Handle form submission
+            start_date = request.form['start_date']
+            end_date = request.form['end_date']
+            category = request.form['category']
+            transaction_type = request.form['type']  # Get selected transaction type
+            
+            # Fetch budget data based on user selections
+            cur = mysql.connection.cursor()
+            query = "SELECT * FROM budget WHERE user_id = %s"
+            params = [session.get('user_id')]
+            
+            if start_date:
+                query += " AND date >= %s"
+                params.append(start_date)
+            
+            if end_date:
+                query += " AND date <= %s"
+                params.append(end_date)
+            
+            if category:
+                query += " AND category = %s"
+                params.append(category)
+            
+            if transaction_type:
+                query += " AND type = %s"
+                params.append(transaction_type)
+            
+            cur.execute(query, params)
+            budget_data = cur.fetchall()
+            cur.close()
+            
+            # Render the reports page template with filtered data and username
+            return render_template('reports.html', budget_data=budget_data, username=username)
+        else:
+            # Render the reports page template with initial data and username
+            return render_template('reports.html', budget_data=[], username=username)
+    else:
+        # Redirect to the sign-in page if not logged in
+        return redirect(url_for('signin'))
+
+
+@app.route('/export', methods=['POST'])
+def export():
     if request.method == 'POST':
-        # Handle form submission
+        export_format = request.form['export_format']
+        
+        # Get filtered budget data
         start_date = request.form['start_date']
         end_date = request.form['end_date']
         category = request.form['category']
-        transaction_type = request.form['type']  # Get selected transaction type
+        transaction_type = request.form['type']
         
-        # Fetch budget data based on user selections
         cur = mysql.connection.cursor()
-        query = "SELECT * FROM budget WHERE 1=1"
-        params = []
+        query = "SELECT * FROM budget WHERE user_id = %s"
+        params = [session.get('user_id')]
         
         if start_date:
             query += " AND date >= %s"
@@ -238,7 +304,7 @@ def reports():
             query += " AND category = %s"
             params.append(category)
         
-        if transaction_type:  # Add condition for transaction type
+        if transaction_type:
             query += " AND type = %s"
             params.append(transaction_type)
         
@@ -246,41 +312,12 @@ def reports():
         budget_data = cur.fetchall()
         cur.close()
         
-        # Render the reports page template with filtered data
-        return render_template('reports.html', budget_data=budget_data)
-    else:
-        # Render the reports page template with initial data
-        return render_template('reports.html', budget_data=[])
-@app.route('/export', methods=['POST'])
-def export():
-    if request.method == 'POST':
-        export_format = request.form['export_format']
-        start_date = request.form.get('start_date')
-        end_date = request.form.get('end_date')
-        category = request.form.get('category')
-        
-        # Construct SQL query based on filter criteria
-        query = "SELECT * FROM budget WHERE 1=1"
-        params = []
-        if start_date:
-            query += " AND date >= %s"
-            params.append(start_date)
-        if end_date:
-            query += " AND date <= %s"
-            params.append(end_date)
-        if category:
-            query += " AND category = %s"
-            params.append(category)
-        
-        # Fetch filtered budget data from the database
-        cur = mysql.connection.cursor()
-        cur.execute(query, params)
-        budget_data = cur.fetchall()
-        cur.close()
-        
         if export_format == 'csv':
             # Generate CSV file
-            csv_data = generate_csv(budget_data)
+            csv_data = "Category,Amount,Type,Date\n"
+            for item in budget_data:
+                csv_data += f"{item[2]},{item[3]},{item[4]},{item[5]}\n"
+            
             return Response(
                 csv_data,
                 mimetype='text/csv',
@@ -288,27 +325,53 @@ def export():
             )
         elif export_format == 'pdf':
             # Generate PDF file
-            pdf_data = generate_pdf(budget_data)
+            pdf_file = generate_pdf(budget_data)  # You need to define the generate_pdf function
             return Response(
-                pdf_data,
+                pdf_file,
                 mimetype='application/pdf',
                 headers={'Content-Disposition': 'attachment; filename=report.pdf'}
             )
-        else:
-            # Handle other export formats
-            pass
 
-def generate_csv(budget_data):
-    # Generate CSV data as a string
-    csv_data = 'Category,Amount,Type,Date\n'
-    for item in budget_data:
-        csv_data += ','.join(map(str, item[2:6])) + '\n'
-    return csv_data
-
-def generate_pdf(budget_data):
-    # Generate PDF file
-    # Implement PDF generation logic here
-    pass
+        # Handle other export formats
+        return "Unsupported export format"
+@app.route('/profile', methods=['GET'])
+def profile():
+    if 'user_id' in session:
+        user_id = session['user_id']
+        username = session.get('username', None)  # Get username from session
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM users WHERE id = %s", (user_id,))
+        user = cur.fetchone()
+        cur.close()
+        user_dict = {
+            'id': user[0],
+            'username': user[1],
+            'password': user[2],
+            'email': user[3],
+            'gender': user[4],
+            'date_of_birth': user[5]
+        }
+        return render_template('profile.html', user=user_dict, username=username)  # Pass username to template
+    else:
+        return redirect(url_for('signin'))
+    
+@app.route('/profile/update', methods=['POST'])
+def update_profile():
+    if 'user_id' in session:
+        user_id = session['user_id']
+        email = request.form['email']
+        gender = request.form['gender']
+        dob = request.form['dob']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE users SET email = %s, gender = %s, date_of_birth = %s WHERE id = %s", (email, gender, dob, user_id))
+        mysql.connection.commit()
+        cur.close()
+        
+        # Redirect to profile page after updating
+        return redirect(url_for('profile'))
+    else:
+        return redirect(url_for('signin'))
 
 
 if __name__ == '__main__':

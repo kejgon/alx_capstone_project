@@ -65,7 +65,7 @@
                                 Budgets</a> </li>
                         <li><a href="{{ url_for('reports') }}"><i class="fa fa-book"></i> Reports</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-user-o"></i> Profile</a>
+                        <li><a href="{{ url_for('profile') }}"><i class="fa fa-user-o"></i> Profile</a>
                         </li>
                     </ul>
                 </nav>
@@ -74,9 +74,7 @@
 
             <div class="right" style="background-color:#FFF;">
 
-                <h3>
-                    Reports
-                </h3>
+                <h3>Reports</h3>
 
                 <form action="/reports" method="post">
                     <label for="start_date">Start Date:</label>
@@ -88,17 +86,15 @@
                     <label for="category">Category:</label>
                     <input type="text" id="category" name="category">
 
-                    <label for="type">Type:</label> <!-- New input for type -->
+                    <label for="type">Type:</label>
                     <select id="type" name="type">
                         <option value="">Select Type</option>
                         <option value="income">Income</option>
                         <option value="expense">Expense</option>
                         <option value="saving">Saving</option>
                     </select>
-
-                    <button type="submit">Filter</button>
+                    <button class="button" type="submit">Filter</button>
                 </form>
-
 
                 {% if budget_data %}
                 <table>
@@ -122,24 +118,22 @@
                     </tbody>
                 </table>
 
-
                 <form action="/export" method="post">
                     <input type="hidden" name="export_format" value="csv">
                     <input type="hidden" name="start_date" value="{{ start_date }}">
                     <input type="hidden" name="end_date" value="{{ end_date }}">
                     <input type="hidden" name="category" value="{{ category }}">
+                    <input type="hidden" name="type" value="{{ type }}">
                     <button type="submit">Export CSV</button>
 
                     <input type="hidden" name="export_format" value="pdf">
                     <input type="hidden" name="start_date" value="{{ start_date }}">
                     <input type="hidden" name="end_date" value="{{ end_date }}">
                     <input type="hidden" name="category" value="{{ category }}">
+                    <input type="hidden" name="type" value="{{ type }}">
                     <button type="submit">Export PDF</button>
                 </form>
-
-
                 {% endif %}
-
 
 
             </div>
