@@ -75,29 +75,71 @@
             <div class="right" style="background-color:#FFF;">
 
                 <h3>
-                    Dashboard
+                    Reports
                 </h3>
 
+                <form action="/reports" method="post">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date">
 
-                <div class="row">
-                    <div class="charts">
-                        <canvas id="summaryChart" width="200" height="200"></canvas>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="box1">
-                        <p>Total Income: {{ total_income }}</p>
-                    </div>
-                    <div class="box2">
-                        <p>Total Expenses: {{ total_expenses }}</p>
-                    </div>
-                    <div class="box3">
-                        <p>Remaining Balance: {{ remaining_balance }}</p>
-                    </div>
-                    <div class="box4">
-                        <p>Total Saving: {{ total_saving }}</p>
-                    </div>
-                </div>
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date">
+
+                    <label for="category">Category:</label>
+                    <input type="text" id="category" name="category">
+
+                    <label for="type">Type:</label> <!-- New input for type -->
+                    <select id="type" name="type">
+                        <option value="">Select Type</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                        <option value="saving">Saving</option>
+                    </select>
+
+                    <button type="submit">Filter</button>
+                </form>
+
+
+                {% if budget_data %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in budget_data %}
+                        <tr>
+                            <td>{{ item[2] }}</td>
+                            <td>{{ item[3] }}</td>
+                            <td>{{ item[4] }}</td>
+                            <td>{{ item[5] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+                <form action="/export" method="post">
+                    <input type="hidden" name="export_format" value="csv">
+                    <input type="hidden" name="start_date" value="{{ start_date }}">
+                    <input type="hidden" name="end_date" value="{{ end_date }}">
+                    <input type="hidden" name="category" value="{{ category }}">
+                    <button type="submit">Export CSV</button>
+
+                    <input type="hidden" name="export_format" value="pdf">
+                    <input type="hidden" name="start_date" value="{{ start_date }}">
+                    <input type="hidden" name="end_date" value="{{ end_date }}">
+                    <input type="hidden" name="category" value="{{ category }}">
+                    <button type="submit">Export PDF</button>
+                </form>
+
+
+                {% endif %}
+
 
 
             </div>
@@ -110,37 +152,6 @@
 
         </div>
 
-        <script>
-            var ctx = document.getElementById('summaryChart').getContext('2d');
-            var summaryChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Total Income', 'Total Expenses', 'Total Saving'],
-                    datasets: [{
-                        label: 'Amount',
-                        data: [{{ total_income }}, {{ total_expenses }}, {{ total_saving }}],
-            backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
-            ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                    borderWidth: 1
-                    }]
-                },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-            });
-        </script>
 
 
 </body>

@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session, abort, jsonify,flash
+from flask import Flask, Response, render_template, request, redirect, url_for, session, abort, jsonify,flash
 from decimal import Decimal
+
+
 
 from flask_mysqldb import MySQL
 import bcrypt
@@ -208,6 +210,106 @@ def logout():
     session.pop('username', None)
     # Redirect to the sign-in page
     return render_template('index.html')
+
+
+@app.route('/reports', methods=['GET', 'POST'])
+def reports():
+    if request.method == 'POST':
+        # Handle form submission
+        start_date = request.form['start_date']
+        end_date = request.form['end_date']
+        category = request.form['category']
+        transaction_type = request.form['type']  # Get selected transaction type
+        
+        # Fetch budget data based on user selections
+        cur = mysql.connection.cursor()
+        query = "SELECT * FROM budget WHERE 1=1"
+        params = []
+        
+        if start_date:
+            query += " AND date >= %s"
+            params.append(start_date)
+        
+        if end_date:
+            query += " AND date <= %s"
+            params.append(end_date)
+        
+        if category:
+            query += " AND category = %s"
+            params.append(category)
+        
+        if transaction_type:  # Add condition for transaction type
+            query += " AND type = %s"
+            params.append(transaction_type)
+        
+        cur.execute(query, params)
+        budget_data = cur.fetchall()
+        cur.close()
+        
+        # Render the reports page template with filtered data
+        return render_template('reports.html', budget_data=budget_data)
+    else:
+        # Render the reports page template with initial data
+        return render_template('reports.html', budget_data=[])
+@app.route('/export', methods=['POST'])
+def export():
+    if request.method == 'POST':
+        export_format = request.form['export_format']
+        start_date = request.form.get('start_date')
+        end_date = request.form.get('end_date')
+        category = request.form.get('category')
+        
+        # Construct SQL query based on filter criteria
+        query = "SELECT * FROM budget WHERE 1=1"
+        params = []
+        if start_date:
+            query += " AND date >= %s"
+            params.append(start_date)
+        if end_date:
+            query += " AND date <= %s"
+            params.append(end_date)
+        if category:
+            query += " AND category = %s"
+            params.append(category)
+        
+        # Fetch filtered budget data from the database
+        cur = mysql.connection.cursor()
+        cur.execute(query, params)
+        budget_data = cur.fetchall()
+        cur.close()
+        
+        if export_format == 'csv':
+            # Generate CSV file
+            csv_data = generate_csv(budget_data)
+            return Response(
+                csv_data,
+                mimetype='text/csv',
+                headers={'Content-Disposition': 'attachment; filename=report.csv'}
+            )
+        elif export_format == 'pdf':
+            # Generate PDF file
+            pdf_data = generate_pdf(budget_data)
+            return Response(
+                pdf_data,
+                mimetype='application/pdf',
+                headers={'Content-Disposition': 'attachment; filename=report.pdf'}
+            )
+        else:
+            # Handle other export formats
+            pass
+
+def generate_csv(budget_data):
+    # Generate CSV data as a string
+    csv_data = 'Category,Amount,Type,Date\n'
+    for item in budget_data:
+        csv_data += ','.join(map(str, item[2:6])) + '\n'
+    return csv_data
+
+def generate_pdf(budget_data):
+    # Generate PDF file
+    # Implement PDF generation logic here
+    pass
+
 
 if __name__ == '__main__':
     app.run(debug=True)

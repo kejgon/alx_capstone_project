@@ -1,0 +1,154 @@
+Category,Amount,Type,Date
+Food,500000.00,income,2024-03-10 12:29:44
+Date,100000.00,expense,2024-03-10 12:31:24
+Movies,2000.00,expense,2024-03-10 17:42:19
+Date,500000.00,income,2024-03-13 13:01:41
+Salary,1438.00,income,2024-03-13 13:20:52
+Dividends,43555.00,income,2024-03-13 13:20:52
+Groceries,14601.00,expense,2024-03-13 13:20:52
+Transportation,85424.00,expense,2024-03-13 13:20:52
+Retirement Fund,91660.00,saving,2024-03-13 13:20:52
+Cryptocurrency,72722.00,saving,2024-03-13 13:20:52
+Investment,58099.00,income,2024-03-13 13:21:36
+Wages,19520.00,income,2024-03-13 13:21:36
+Utilities,48003.00,expense,2024-03-13 13:21:36
+Rent,36369.00,expense,2024-03-13 13:21:36
+Investment Portfolio,59000.00,saving,2024-03-13 13:21:36
+Cryptocurrency,93674.00,saving,2024-03-13 13:21:36
+Freelance,65868.00,income,2024-03-13 13:22:00
+Bonus,4190.00,income,2024-03-13 13:22:00
+Entertainment,86798.00,expense,2024-03-13 13:22:00
+Transportation,11452.00,expense,2024-03-13 13:22:00
+Investment Portfolio,36406.00,saving,2024-03-13 13:22:00
+Real Estate,88662.00,saving,2024-03-13 13:22:00
+Investment,97729.00,income,2024-03-13 13:22:10
+Bonus,16226.00,income,2024-03-13 13:22:10
+Utilities,28742.00,expense,2024-03-13 13:22:10
+Dining Out,66.00,expense,2024-03-13 13:22:10
+Retirement Fund,42573.00,saving,2024-03-13 13:22:10
+Real Estate,8307.00,saving,2024-03-13 13:22:10
+Salary,61351.00,income,2024-03-13 13:22:15
+Bonus,26644.00,income,2024-03-13 13:22:15
+Utilities,54090.00,expense,2024-03-13 13:22:15
+Rent,87907.00,expense,2024-03-13 13:22:15
+Investment Portfolio,83439.00,saving,2024-03-13 13:22:15
+Cryptocurrency,94178.00,saving,2024-03-13 13:22:15
+Salary,83872.00,income,2024-03-13 13:22:18
+Bonus,42623.00,income,2024-03-13 13:22:18
+Utilities,54993.00,expense,2024-03-13 13:22:18
+Transportation,61256.00,expense,2024-03-13 13:22:18
+Savings Account,68934.00,saving,2024-03-13 13:22:18
+Real Estate,58453.00,saving,2024-03-13 13:22:18
+Freelance,5614.00,income,2024-03-13 13:22:21
+Dividends,91262.00,income,2024-03-13 13:22:21
+Groceries,83469.00,expense,2024-03-13 13:22:21
+Dining Out,64554.00,expense,2024-03-13 13:22:21
+Retirement Fund,75305.00,saving,2024-03-13 13:22:21
+Stocks,49819.00,saving,2024-03-13 13:22:21
+Investment,46758.00,income,2024-03-13 13:22:24
+Wages,86524.00,income,2024-03-13 13:22:24
+Groceries,23140.00,expense,2024-03-13 13:22:24
+Transportation,60953.00,expense,2024-03-13 13:22:24
+Savings Account,49841.00,saving,2024-03-13 13:22:24
+Real Estate,98416.00,saving,2024-03-13 13:22:24
+Food,983.94,expense,2022-01-01 00:00:00
+Utilities,663.18,expense,2022-02-15 00:00:00
+Transportation,364.07,expense,2022-03-20 00:00:00
+Entertainment,830.80,expense,2022-04-10 00:00:00
+Healthcare,61.80,expense,2022-05-05 00:00:00
+Education,816.60,expense,2022-06-30 00:00:00
+Food,897.61,income,2022-07-12 00:00:00
+Utilities,38.25,income,2022-08-25 00:00:00
+Transportation,498.43,income,2022-09-05 00:00:00
+Entertainment,377.40,income,2022-10-18 00:00:00
+Food,173.67,income,2024-03-10 12:29:44
+Date,719.56,expense,2024-03-10 12:31:24
+Movies,76.76,expense,2024-03-10 17:42:19
+Date,225.15,income,2024-03-13 13:01:41
+Date,895.46,saving,2024-03-13 13:01:41
+Utilities,801.85,expense,2024-03-13 13:29:49
+Transportation,322.85,expense,2024-03-13 13:29:49
+Entertainment,208.70,expense,2024-03-13 13:29:49
+Healthcare,74.96,expense,2024-03-13 13:29:49
+Education,748.71,expense,2024-03-13 13:29:49
+Food,518.67,income,2024-03-13 13:29:49
+Utilities,347.20,income,2024-03-13 13:29:49
+Transportation,179.99,income,2024-03-13 13:29:49
+Entertainment,858.36,income,2024-03-13 13:29:49
+Food,751.83,expense,2024-03-13 13:29:49
+Utilities,184.07,expense,2024-03-13 13:29:49
+Transportation,664.88,expense,2024-03-13 13:29:49
+Entertainment,772.17,expense,2024-03-13 13:29:49
+Healthcare,866.19,expense,2024-03-13 13:29:49
+Education,14.47,expense,2024-03-13 13:29:49
+Food,473.79,income,2024-03-13 13:29:49
+Utilities,325.51,income,2024-03-13 13:29:49
+Transportation,206.20,income,2024-03-13 13:29:49
+Entertainment,54.47,income,2024-03-13 13:29:49
+Food,776.26,income,2024-03-10 12:29:44
+Date,30.53,expense,2024-03-10 12:31:24
+Movies,823.89,expense,2024-03-10 17:42:19
+Date,27.87,income,2024-03-13 13:01:41
+Date,667.67,saving,2024-03-13 13:01:41
+Utilities,254.76,expense,2024-03-13 13:30:22
+Transportation,270.76,expense,2024-03-13 13:30:22
+Entertainment,589.51,expense,2024-03-13 13:30:22
+Healthcare,135.29,expense,2024-03-13 13:30:22
+Education,907.91,expense,2024-03-13 13:30:22
+Food,133.69,income,2024-03-13 13:30:22
+Utilities,944.72,income,2024-03-13 13:30:22
+Transportation,322.55,income,2024-03-13 13:30:22
+Entertainment,778.56,income,2024-03-13 13:30:22
+Food,925.17,expense,2024-03-13 13:30:22
+Utilities,290.18,expense,2024-03-13 13:30:22
+Transportation,675.38,expense,2024-03-13 13:30:22
+Entertainment,506.36,expense,2024-03-13 13:30:22
+Healthcare,505.64,expense,2024-03-13 13:30:22
+Education,9.15,expense,2024-03-13 13:30:22
+Food,528.81,income,2024-03-13 13:30:22
+Utilities,616.61,income,2024-03-13 13:30:22
+Transportation,496.60,income,2024-03-13 13:30:22
+Entertainment,633.19,income,2024-03-13 13:30:22
+Food,784.14,income,2024-03-10 12:29:44
+Date,564.03,expense,2024-03-10 12:31:24
+Movies,467.75,expense,2024-03-10 17:42:19
+Date,646.64,income,2024-03-13 13:01:41
+Date,829.96,saving,2024-03-13 13:01:41
+Utilities,209.88,expense,2024-03-13 13:30:26
+Transportation,559.51,expense,2024-03-13 13:30:26
+Entertainment,167.93,expense,2024-03-13 13:30:26
+Healthcare,161.12,expense,2024-03-13 13:30:26
+Education,301.80,expense,2024-03-13 13:30:26
+Food,25.62,income,2024-03-13 13:30:26
+Utilities,222.74,income,2024-03-13 13:30:26
+Transportation,36.81,income,2024-03-13 13:30:26
+Entertainment,515.83,income,2024-03-13 13:30:26
+Food,468.71,expense,2024-03-13 13:30:26
+Utilities,796.06,expense,2024-03-13 13:30:26
+Transportation,574.16,expense,2024-03-13 13:30:26
+Entertainment,482.64,expense,2024-03-13 13:30:26
+Healthcare,690.71,expense,2024-03-13 13:30:26
+Education,5.63,expense,2024-03-13 13:30:26
+Food,956.02,income,2024-03-13 13:30:26
+Utilities,763.19,income,2024-03-13 13:30:26
+Transportation,947.92,income,2024-03-13 13:30:26
+Entertainment,450.01,income,2024-03-13 13:30:26
+Food,517.69,income,2024-03-10 12:29:44
+Date,431.62,expense,2024-03-10 12:31:24
+Movies,605.05,expense,2024-03-10 17:42:19
+Utilities,992.80,expense,2024-03-13 13:30:31
+Transportation,453.62,expense,2024-03-13 13:30:31
+Entertainment,289.72,expense,2024-03-13 13:30:31
+Healthcare,87.71,expense,2024-03-13 13:30:31
+Education,569.40,expense,2024-03-13 13:30:31
+Food,583.85,income,2024-03-13 13:30:31
+Utilities,211.08,income,2024-03-13 13:30:31
+Transportation,303.85,income,2024-03-13 13:30:31
+Entertainment,886.02,income,2024-03-13 13:30:31
+Food,518.54,expense,2024-03-13 13:30:31
+Utilities,934.65,expense,2024-03-13 13:30:31
+Transportation,117.62,expense,2024-03-13 13:30:31
+Entertainment,784.16,expense,2024-03-13 13:30:31
+Healthcare,567.94,expense,2024-03-13 13:30:31
+Education,487.20,expense,2024-03-13 13:30:31
+Trip,500000.00,saving,2024-03-13 14:50:21

@@ -225,6 +225,12 @@ making sure that any padding or borders added to an element are included in its 
         border-collapse: collapse;
     }
 
+    table,
+    th,
+    td {
+        border: 4px solid #74E291;
+    }
+
     /* This sets the styles for odd rows in the table */
     tr:nth-of-type(odd) {
         background: none;
