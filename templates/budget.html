@@ -2,14 +2,20 @@
 <html lang="en">
 
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- External CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Title -->
     <title>Budget Tracker</title>
 </head>
 
+<!-- Internal CSS -->
 <style>
     /* Modal styles */
     .modal {
@@ -61,92 +67,102 @@
 </style>
 
 <body>
-
-
     <!-- HEADER -->
     <div class="header">
         <div class="logo">
+            <!-- Logo -->
             <img src="{{ url_for('static', filename='doughzen.png') }}" width="100">
+            <!-- Application name -->
             <p>Budget Tracker</p>
         </div>
     </div>
 
-
-
     <!-- NAVBAR -->
     <div class="navbar">
         <ul>
+            <!-- Logout link -->
             <li style="float:right"><a href="{{ url_for('logout') }}"><i class="fa fa-sign-in" style="color:red"></i>
                     Logout</a></li>
         </ul>
     </div>
 
-    <!------------------------Main Menu------------------------>
-    <!-------------------------------------------------------->
+    <!-- Main content section -->
     <div class="section">
         <div class="row">
+            <!-- Left sidebar -->
             <div class="left">
                 <div class="row" style="padding-bottom: 0px;">
+                    <!-- User information -->
                     <table style="color:#000; text-align:left; padding-left:10px;">
                         <tr>
                             <td>Username</td>
+                            <!-- User's username -->
                             <td>{{ username }}</td>
                         </tr>
                     </table>
                 </div>
+                <!-- Vertical navigation menu -->
                 <nav class="vertical" style="margin-top: 0px;">
                     <ul>
+                        <!-- Dashboard link -->
                         <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-dashboard"></i>
                                 Dashboard</a></li>
+                        <!-- Budgets link -->
                         <li><a href="{{ url_for('budget') }}"><i class="fa fa-exchange" aria-hidden="true"></i>
                                 Budgets</a> </li>
+                        <!-- Reports link -->
                         <li><a href="{{ url_for('reports') }}"><i class="fa fa-book"></i> Reports</a>
                         </li>
+                        <!-- Profile link -->
                         <li><a href="{{ url_for('profile') }}"><i class="fa fa-user-o"></i> Profile</a>
                         </li>
                     </ul>
                 </nav>
             </div>
 
-
+            <!-- Right content area -->
             <div class="right" style="background-color:#FFF;">
-
+                <!-- Budget heading -->
                 <h3>
                     Budget
                 </h3>
 
+                <!-- Form to add a new budget item -->
                 <form id="addItemForm" action="{{ url_for('add_item') }}" method="post">
                     <label for="category">Category:</label>
+                    <!-- Input for category -->
                     <input type="text" id="category" name="category" required>
                     <label for="amount">Amount:</label>
+                    <!-- Input for amount -->
                     <input type="number" id="amount" name="amount" required>
+                    <!-- Dropdown for type -->
                     <select id="type" name="type">
                         <option value="income">Income</option>
                         <option value="expense">Expense</option>
                         <option value="saving">Saving</option>
                     </select>
+                    <!-- Button to add the item -->
                     <button class="button" type="submit"><i class="fa fa-plus-square" aria-hidden="true"
                             style="font-size: 20px;"></i> Add</button>
                 </form>
 
+                <!-- Flash messages -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                 {% for category, message in messages %}
                 <div class="{{ category }}{% if category == 'delete' %}{% endif %}" role="alert">
                     {{ message }}
                     <hr>
-
                 </div>
                 {% endfor %}
                 {% endif %}
                 {% endwith %}
 
-                <!-- Your existing HTML content here -->
-
                 <!-- Display area for budget data -->
                 <div id="budgetData" style="color: #000;">
                     <h2>Budget Data</h2>
-                    <table style="margin-bottom: 100px; color: #000;">
+                    <!-- Table to display budget data -->
+                    <table style="margin-bottom: 0px; color: #000;">
                         <thead>
                             <tr>
                                 <th>Category</th>
@@ -164,9 +180,11 @@
                                 <td id="type_{{ item[0] }}">{{ item[4] }}</td> <!-- Accessing the type -->
                                 <td>{{ item[5] }}</td> <!-- Accessing the date -->
                                 <td>
+                                    <!-- Edit button -->
                                     <a href="#" class="editBtn" onclick="openEditModal('{{ item[0] }}')"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"
                                             style="font-size: 20px;"></i></a>|
+                                    <!-- Delete button -->
                                     <a href="{{ url_for('delete_item', item_id=item[0]) }}"><i
                                             class="fa fa-times delete" aria-hidden="true"
                                             style="font-size: 20px;"></i></a>
@@ -179,8 +197,10 @@
                     <!-- Previous and Next buttons -->
                     {% if budget_data|length >= 10 %}
                     <div style="text-align: center;margin-top: 20px; margin-bottom: 100px;">
+                        <!-- Previous button -->
                         <a href="{{ url_for('budget', page=prev_page) }}"
                             class="button btn-primary{% if not prev_page %} disabled{% endif %}">Previous</a>
+                        <!-- Next button -->
                         <a href="{{ url_for('budget', page=next_page) }}"
                             class="button btn-primary{% if not next_page %} disabled{% endif %}">Next</a>
                     </div>
@@ -191,17 +211,24 @@
                 <!-- Edit Modal -->
                 <div id="editModal" class="modal">
                     <div class="modal-content">
+                        <!-- Close button -->
                         <span class="close" onclick="closeEditModal()">&times;</span>
+                        <!-- Edit Budget Item heading -->
                         <h2>Edit Budget Item</h2>
+                        <!-- Form to edit budget item -->
                         <form id="editForm" method="post">
                             <label for="new_category">Category:</label>
+                            <!-- Input for new category -->
                             <input type="text" id="new_category" name="new_category" required>
                             <label for="new_amount">Amount:</label>
+                            <!-- Input for new amount -->
                             <input type="number" id="new_amount" name="new_amount" required>
+                            <!-- Dropdown for new type -->
                             <select id="new_type" name="new_type">
                                 <option value="income">Income</option>
                                 <option value="expense">Expense</option>
                             </select>
+                            <!-- Button to update item -->
                             <button class="button" type="submit" onclick="updateItem()">Update Item</button>
                         </form>
                     </div>
@@ -210,12 +237,15 @@
             </div>
         </div>
 
+        <!-- Footer -->
         <div class="footer">
             <p><strong>© Budget Tracker - all right and reserved</strong></p>
         </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
+        // Function to open edit modal and pre-fill form with item data
         function openEditModal(itemId) {
             var modal = document.getElementById('editModal');
             modal.style.display = "block";
@@ -235,12 +265,13 @@
             document.getElementById('editForm').action = "/edit_item/" + itemId;
         }
 
+        // Function to close edit modal
         function closeEditModal() {
             var modal = document.getElementById('editModal');
             modal.style.display = "none";
         }
 
-
+        // Function to update item
         function updateItem() {
             // Get the item ID from the form data attribute
             var itemId = document.getElementById('editForm').getAttribute('data-item-id');
@@ -266,8 +297,6 @@
             xhr.send(formData);
         }
     </script>
-
-
 </body>
 
 </html>

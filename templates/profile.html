@@ -1,54 +1,59 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
     <!-- Add Chart.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
-
+    <!-- Title -->
     <title>Budget Tracker</title>
 
 </head>
 
 <style>
+    /* Custom styles */
     .success {
         color: #0bf95e;
+        /* Color for success messages */
         font-size: medium;
     }
 </style>
 
 <body>
-
-
     <!-- HEADER -->
     <div class="header">
         <div class="logo">
+            <!-- Logo with link to home -->
             <img src="{{ url_for('static', filename='doughzen.png') }}" width="100">
             <p>Budget Tracker</p>
         </div>
     </div>
 
-
-
     <!-- NAVBAR -->
     <div class="navbar">
-
         <ul>
-
+            <!-- Logout link -->
             <li style="float:right"><a href="{{ url_for('logout') }}"><i class="fa fa-sign-in" style="color:red"></i>
                     Logout</a></li>
         </ul>
     </div>
 
-    <!------------------------Main Menu------------------------>
-    <!-------------------------------------------------------->
+    <!-- Main content section -->
     <div class="section">
         <div class="row">
             <div class="left">
+                <!-- User information -->
                 <div class="row" style="padding-bottom: 0px;">
                     <table style="color:#000; text-align:left; padding-left:10px;">
                         <tr>
@@ -57,29 +62,27 @@
                         </tr>
                     </table>
                 </div>
+                <!-- Navigation menu -->
                 <nav class="vertical" style="margin-top: 0px;">
                     <ul>
-                        <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-dashboard"></i>
-                                Dashboard</a></li>
+                        <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
                         <li><a href="{{ url_for('budget') }}"><i class="fa fa-exchange" aria-hidden="true"></i>
-                                Budgets</a> </li>
-                        <li><a href="{{ url_for('reports') }}"><i class="fa fa-book"></i> Reports</a>
-                        </li>
-                        <li><a href="{{ url_for('profile') }}"><i class="fa fa-user-o"></i> Profile</a>
-                        </li>
+                                Budgets</a></li>
+                        <li><a href="{{ url_for('reports') }}"><i class="fa fa-book"></i> Reports</a></li>
+                        <li><a href="{{ url_for('profile') }}"><i class="fa fa-user-o"></i> Profile</a></li>
                     </ul>
                 </nav>
             </div>
 
-
             <div class="right" style="background-color:#FFF;">
-
+                <!-- User profile section -->
                 <h3>User Profile</h3>
 
+                <!-- Flash messages for profile update -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                 {% for category, message in messages %}
-                <div class="{{ category }}{% if category == 'delete' %}{% endif %}" role="alert">
+                <div class="{{ category }}" role="alert">
                     {{ message }}
                     <hr>
                 </div>
@@ -87,6 +90,7 @@
                 {% endif %}
                 {% endwith %}
 
+                <!-- Profile update form -->
                 <form action="/profile/update" method="post">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" value="{{ user.username }}" readonly><br><br>
@@ -102,29 +106,15 @@
 
                     <button class="button" type="submit">Update Profile</button>
                 </form>
-
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                {% for category, message in messages %}
-                <div class="{{ category }}{% if category == 'delete' %}{% endif %}" role="alert">
-                    {{ message }}
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-
             </div>
-
         </div>
+    </div>
 
-
-        <div class="footer">
-            <p><strong>© Budget Tracker - all right and reserved</strong></p>
-
-        </div>
-
-
-
+    <!-- Footer -->
+    <div class="footer">
+        <!-- Copyright information -->
+        <p><strong>© Budget Tracker - all right and reserved</strong></p>
+    </div>
 </body>
 
 </html>

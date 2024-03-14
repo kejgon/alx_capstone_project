@@ -1,63 +1,65 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+    <!-- Title -->
     <title>Budget Tracker</title>
-
 </head>
 
 <style>
+    /* Custom styles */
     .section {
-        height: 600px
+        height: 600px;
+        /* Set height of section */
     }
 </style>
 
 <body>
-
-
     <!-- HEADER -->
     <div class="header">
         <div class="logo">
+            <!-- Logo with link to home -->
             <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='doughzen.png') }}"
                     width="100"></a>
+            <!-- Application name -->
             <p>Budget Tracker</p>
         </div>
     </div>
 
-
-
     <!-- NAVBAR -->
     <div class="navbar">
-
         <ul>
+            <!-- Home link -->
             <li style="float:left"><a href="{{ url_for('index') }}">Home</a></li>
-
+            <!-- Sign in link -->
             <li style="float:right"><a href="{{ url_for('signin') }}"><i class="fa fa-sign-out"></i>Sign in</a></li>
         </ul>
     </div>
 
-    <!------------------------Main Menu------------------------>
-    <!-------------------------------------------------------->
-
+    <!-- Main content section -->
     <div class="section"
         style='background-image: url("{{ url_for("static", filename="budget tracker.jpg") }}"); background-size: cover; background-position: center; padding:20px'>
         <div class="container" style="margin-top: 300px; background:rgba(43, 47, 43, 0.445);">
-            <h1 style="color: rgb(194, 241, 203);">Welcome to the Budget Tracker Simpo App</h1>
+            <!-- Welcome message -->
+            <h1 style="color: rgb(194, 241, 203);">Welcome to the Budget Tracker Simple App</h1>
         </div>
     </div>
 
-
-
-
-
+    <!-- Footer -->
     <div class="footer">
+        <!-- Copyright information -->
         <p><strong>© Budget Tracker - all right and reserved</strong></p>
-
     </div>
 </body>
 

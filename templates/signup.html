@@ -1,51 +1,53 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+    <!-- Title -->
     <title>Budget Tracker</title>
 
 </head>
 
 <style>
-
+    /* No specific styles defined in the head */
 </style>
 
 <body>
-
-
     <!-- HEADER -->
     <div class="header">
         <div class="logo">
+            <!-- Logo with link to index -->
             <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='doughzen.png') }}"
                     width="100"></a>
             <p>Budget Tracker</p>
         </div>
     </div>
 
-
-
     <!-- NAVBAR -->
     <div class="navbar">
-
         <ul>
+            <!-- Home link -->
             <li style="float:left"><a href="{{ url_for('index') }}">Home</a></li>
-
+            <!-- Sign in link -->
             <li style="float:right"><a href="{{ url_for('signin') }}"><i class="fa fa-sign-out"></i>Sign in</a></li>
         </ul>
     </div>
 
-    <!------------------------Main Menu------------------------>
-    <!-------------------------------------------------------->
-
-
+    <!-- Main content section -->
     <div class="section">
         <div class="container">
             <h2>Sign up</h2>
+            <!-- Sign up form -->
             <form action="{{ url_for('signup') }}" method="POST">
                 <div>
                     <label for="username">Username:</label>
@@ -70,17 +72,14 @@
                     <label for="date_of_birth">Date of Birth:</label>
                     <input type="date" id="date_of_birth" name="date_of_birth" required>
                 </div>
-                <button class="button" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i>
-                    signup</button>
+                <button class="button" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign up</button>
             </form>
         </div>
     </div>
 
-
-
+    <!-- Footer -->
     <div class="footer">
         <p><strong>© Budget Tracker - all right and reserved</strong></p>
-
     </div>
 </body>
 

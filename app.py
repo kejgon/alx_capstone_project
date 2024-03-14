@@ -1,11 +1,7 @@
-from flask import Flask, Response, render_template, request, redirect, url_for, session, abort, jsonify,flash
+from flask import Flask, Response, render_template, request, redirect, url_for, session, flash
 from decimal import Decimal
-
-
-
 from flask_mysqldb import MySQL
 import bcrypt
-from networkx import generate_adjlist
 
 app = Flask(__name__)
 
@@ -21,12 +17,12 @@ app.secret_key = 'ff93cedce7fbdd43168d6be0145e0952'
 
 @app.route('/')
 def index():
+    """Render index page."""
     return render_template('index.html')
-
-
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
+    """Sign in route."""
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -56,6 +52,7 @@ def signin():
 
 @app.route('/dashboard')
 def dashboard():
+    """Dashboard route."""
     if 'username' in session:
         username = session['username']  # Retrieve the username from the session
         
@@ -84,11 +81,9 @@ def dashboard():
     else:
         return redirect(url_for('signin'))  # Redirect to the sign-in page if not logged in
 
-
-    
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    """Sign up route."""
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
@@ -108,6 +103,7 @@ def signup():
 
 @app.route('/budget')
 def budget():
+    """Budget route."""
     success_message = request.args.get('success')
     if 'username' in session:
         username = session['username']
@@ -134,10 +130,10 @@ def budget():
     else:
         # Redirect to the sign-in page if not logged in
         return redirect(url_for('signin'))
-# Route to add a budget item
+
 @app.route('/add_item', methods=['POST'])
-# Function to add a budget item
 def add_item():
+    """Add item route."""
     if request.method == 'POST':
         category = request.form['category']
         amount = Decimal(request.form['amount'])  # Convert amount to Decimal
@@ -195,9 +191,10 @@ def add_item():
         cur.close()
         flash("Budget item added successfully.", 'success')
         return redirect(url_for('budget'))
-    
+
 @app.route('/edit_item/<int:item_id>', methods=['GET', 'POST'])
 def edit_item(item_id):
+    """Edit item route."""
     if request.method == 'POST':
         # Handle form submission
         new_category = request.form['new_category']
@@ -209,7 +206,7 @@ def edit_item(item_id):
                     (new_category, new_amount, new_type, item_id))
         mysql.connection.commit()
         cur.close()
-        flash('Item updated successfully', 'success')
+        flash('Updated successfully', 'success')
         return redirect(url_for('budget'))
     else:
         # Fetch the item to be edited from the database
@@ -218,22 +215,21 @@ def edit_item(item_id):
         item = cur.fetchone()
         cur.close()
         return render_template('edit_item.html', item=item)
-    
-
 
 @app.route('/delete_item/<int:item_id>')
 def delete_item(item_id):
+    """Delete item route."""
     # Delete the item from the database
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM budget WHERE id = %s", (item_id,))
     mysql.connection.commit()
     cur.close()
-    flash('Item deleted successfully', 'delete')
+    flash('Deleted successfully', 'delete')
     return redirect(url_for('budget'))
 
-    
 @app.route('/logout')
 def logout():
+    """Logout route."""
     # Clear the session data
     session.pop('username', None)
     # Redirect to the sign-in page
@@ -241,6 +237,7 @@ def logout():
 
 @app.route('/reports', methods=['GET', 'POST'])
 def reports():
+    """Reports route."""
     if 'username' in session:
         username = session['username']  # Retrieve the username from the session
         
@@ -285,9 +282,9 @@ def reports():
         # Redirect to the sign-in page if not logged in
         return redirect(url_for('signin'))
 
-
 @app.route('/export', methods=['POST'])
 def export():
+    """Export route."""
     if request.method == 'POST':
         export_format = request.form['export_format']
         
@@ -332,19 +329,13 @@ def export():
                 mimetype='text/csv',
                 headers={'Content-Disposition': 'attachment; filename=report.csv'}
             )
-        elif export_format == 'pdf':
-            # Generate PDF file
-            pdf_file = generate_pdf(budget_data)  # You need to define the generate_pdf function
-            return Response(
-                pdf_file,
-                mimetype='application/pdf',
-                headers={'Content-Disposition': 'attachment; filename=report.pdf'}
-            )
-
+    
         # Handle other export formats
         return "Unsupported export format"
+
 @app.route('/profile', methods=['GET'])
 def profile():
+    """Profile route."""
     if 'user_id' in session:
         user_id = session['user_id']
         username = session.get('username', None)  # Get username from session
@@ -363,9 +354,10 @@ def profile():
         return render_template('profile.html', user=user_dict, username=username)  # Pass username to template
     else:
         return redirect(url_for('signin'))
-    
+
 @app.route('/profile/update', methods=['POST'])
 def update_profile():
+    """Update profile route."""
     if 'user_id' in session:
         user_id = session['user_id']
         email = request.form['email']
@@ -382,7 +374,6 @@ def update_profile():
         return redirect(url_for('profile'))
     else:
         return redirect(url_for('signin'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)

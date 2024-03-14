@@ -1,20 +1,27 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <!-- Add Chart.js library -->
+
+    <!-- Chart.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
-
+    <!-- Title -->
     <title>Budget Tracker</title>
-
 </head>
 
 <style>
+    /* Custom styles */
     .charts {
         width: 50%;
         padding: 50px;
@@ -22,108 +29,122 @@
 </style>
 
 <body>
-
-
     <!-- HEADER -->
     <div class="header">
         <div class="logo">
+            <!-- Logo -->
             <img src="{{ url_for('static', filename='doughzen.png') }}" width="100">
+            <!-- Application name -->
             <p>Budget Tracker</p>
         </div>
     </div>
 
-
-
     <!-- NAVBAR -->
     <div class="navbar">
-
         <ul>
-
+            <!-- Logout link -->
             <li style="float:right"><a href="{{ url_for('logout') }}"><i class="fa fa-sign-in" style="color:red"></i>
                     Logout</a></li>
         </ul>
     </div>
 
-    <!------------------------Main Menu------------------------>
-    <!-------------------------------------------------------->
+    <!-- Main content section -->
     <div class="section">
         <div class="row">
+            <!-- Left sidebar -->
             <div class="left">
                 <div class="row" style="padding-bottom: 0px;">
+                    <!-- User information -->
                     <table style="color:#000; text-align:left; padding-left:10px;">
                         <tr>
                             <td>Username</td>
+                            <!-- User's username -->
                             <td>{{ username }}</td>
                         </tr>
                     </table>
                 </div>
+                <!-- Vertical navigation menu -->
                 <nav class="vertical" style="margin-top: 0px;">
                     <ul>
+                        <!-- Dashboard link -->
                         <li><a href="{{ url_for('dashboard') }}"><i class="fa fa-dashboard"></i>
                                 Dashboard</a></li>
+                        <!-- Budgets link -->
                         <li><a href="{{ url_for('budget') }}"><i class="fa fa-exchange" aria-hidden="true"></i>
                                 Budgets</a> </li>
+                        <!-- Reports link -->
                         <li><a href="{{ url_for('reports') }}"><i class="fa fa-book"></i> Reports</a>
                         </li>
+                        <!-- Profile link -->
                         <li><a href="{{ url_for('profile') }}"><i class="fa fa-user-o"></i> Profile</a>
                         </li>
                     </ul>
                 </nav>
             </div>
 
-
+            <!-- Right content area -->
             <div class="right" style="background-color:#FFF;">
-
+                <!-- Dashboard heading -->
                 <h3>
                     Dashboard
                 </h3>
 
-
+                <!-- Summary chart -->
                 <div class="row">
                     <div class="charts">
+                        <!-- Canvas for summary chart -->
                         <canvas id="summaryChart" width="200" height="200"></canvas>
                     </div>
                 </div>
+
+                <!-- Summary data -->
                 <div class="row" style="margin-bottom: 100px;">
+                    <!-- Total income -->
                     <div class="box1">
                         <p>Total Income: {{ total_income }}</p>
                     </div>
+                    <!-- Total expenses -->
                     <div class="box2">
                         <p>Total Expenses: {{ total_expenses }}</p>
                     </div>
+                    <!-- Remaining balance -->
                     <div class="box3">
                         <p>Remaining Balance: {{ remaining_balance }}</p>
                     </div>
+                    <!-- Total saving -->
                     <div class="box4">
                         <p>Total Saving: {{ total_saving }}</p>
                     </div>
                 </div>
 
-
             </div>
-
         </div>
 
-
+        <!-- Footer -->
         <div class="footer">
             <p><strong>© Budget Tracker - all right and reserved</strong></p>
-
         </div>
 
         <script>
+            // JavaScript code for summary chart
             var ctx = document.getElementById('summaryChart').getContext('2d');
             var summaryChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
+                    // Labels for the chart
                     labels: ['Total Income', 'Total Expenses', 'Total Saving'],
                     datasets: [{
+                        // Dataset for amount data
                         label: 'Amount',
+                        // Data values
                         data: [{{ total_income }}, {{ total_expenses }}, {{ total_saving }}],
+            // Background colors for bars
             backgroundColor: [
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(75, 192, 192, 0.2)'
             ],
+                // Border colors for bars
                 borderColor: [
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 99, 132, 1)',
@@ -141,7 +162,6 @@
             }
             });
         </script>
-
 
 </body>
 

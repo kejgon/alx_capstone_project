@@ -1,52 +1,54 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <!-- Meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+    <!-- Title -->
     <title>Budget Tracker</title>
 
 </head>
 
 <body>
-
-
     <!-- HEADER -->
     <div class="header">
         <div class="logo">
+            <!-- Logo with link to index -->
             <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='doughzen.png') }}"
                     width="100"></a>
             <p>Budget Tracker</p>
         </div>
     </div>
 
-
-
     <!-- NAVBAR -->
     <div class="navbar">
-
         <ul>
-
+            <!-- Home link -->
             <li style="float:left"><a href="{{ url_for('index') }}">Home</a></li>
+            <!-- Sign up link -->
             <li style="float:right"><a href="{{ url_for('signup') }}"><i class="fa fa-user-plus" aria-hidden="true"></i>
                     Sign Up</a></li>
         </ul>
     </div>
 
-    <!------------------------Main Menu------------------------>
-    <!-------------------------------------------------------->
-
-
+    <!-- Main content section -->
     <div class="section">
         <div class="container">
-            <h2>
-                Sign in</h2>
+            <h2>Sign in</h2>
+            <!-- Display error message if exists -->
             {% if error_message %}
             <p style="color: red;">{{ error_message }}</p>
             {% endif %}
+            <!-- Sign in form -->
             <form action="{{ url_for('signin') }}" method="POST">
                 <div>
                     <label for="username">Username:</label>
@@ -61,9 +63,10 @@
             </form>
         </div>
     </div>
+
+    <!-- Footer -->
     <div class="footer">
         <p><strong>© Budget Tracker - all right and reserved</strong></p>
-
     </div>
 </body>
 
