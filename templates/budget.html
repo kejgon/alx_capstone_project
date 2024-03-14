@@ -166,17 +166,25 @@
                                 <td>
                                     <a href="#" class="editBtn" onclick="openEditModal('{{ item[0] }}')"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"
-                                            style="font-size: 20px;"></i>
-                                    </a>|
+                                            style="font-size: 20px;"></i></a>|
                                     <a href="{{ url_for('delete_item', item_id=item[0]) }}"><i
-                                            class="fa fa-times delete" aria-hidden="true" style="font-size: 20px;"></i>
-                                    </a>
+                                            class="fa fa-times delete" aria-hidden="true"
+                                            style="font-size: 20px;"></i></a>
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
 
+                    <!-- Previous and Next buttons -->
+                    {% if budget_data|length >= 10 %}
+                    <div style="text-align: center;margin-top: 20px; margin-bottom: 100px;">
+                        <a href="{{ url_for('budget', page=prev_page) }}"
+                            class="button btn-primary{% if not prev_page %} disabled{% endif %}">Previous</a>
+                        <a href="{{ url_for('budget', page=next_page) }}"
+                            class="button btn-primary{% if not next_page %} disabled{% endif %}">Next</a>
+                    </div>
+                    {% endif %}
 
                 </div>
 

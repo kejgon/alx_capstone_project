@@ -106,7 +106,6 @@ def signup():
 
     return render_template('signup.html')
 
-    
 @app.route('/budget')
 def budget():
     success_message = request.args.get('success')
@@ -116,15 +115,25 @@ def budget():
         user_id = session.get('user_id')
         # Fetch budget data for the current user from the database
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM budget WHERE user_id = %s", (user_id,))
+        page = int(request.args.get('page', 1))  # Get page number from query parameters, default to 1
+        per_page = 10  # Number of items per page
+        offset = (page - 1) * per_page  # Calculate offset
+        cur.execute("SELECT * FROM budget WHERE user_id = %s LIMIT %s OFFSET %s", (user_id, per_page, offset))
         budget_data = cur.fetchall()
         cur.close()
+        
+        # Check if there are more pages
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT COUNT(*) FROM budget WHERE user_id = %s", (user_id,))
+        total_items = cur.fetchone()[0]
+        cur.close()
+        next_page = page + 1 if total_items > page * per_page else None
+        prev_page = page - 1 if page > 1 else None
         # Pass both username and budget data to the template
-        return render_template('budget.html', username=username, budget_data=budget_data, success_message=success_message)
+        return render_template('budget.html', username=username, budget_data=budget_data, success_message=success_message, next_page=next_page, prev_page=prev_page)
     else:
         # Redirect to the sign-in page if not logged in
         return redirect(url_for('signin'))
-
 # Route to add a budget item
 @app.route('/add_item', methods=['POST'])
 # Function to add a budget item
