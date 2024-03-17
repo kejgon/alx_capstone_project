@@ -21,9 +21,9 @@ The Budget Tracker web application is designed to help users manage their financ
 - **Database:** MySQL
 - **Other:** Git for version control
 
-## Screenshots or Demo
+## Demo
 
-[Link to Live Demo]<http://example.com)](https://www.loom.com/share/86f4382fd01848688b8a6ed729433b46?sid=3b01c47d-2fa3-430e-8f9e-9c6a5d76dab6>
+[Link to Live Demo][<http://example.com)](https://www.loom.com/share/86f4382fd01848688b8a6ed729433b46?sid=3b01c47d-2fa3-430e-8f9e-9c6a5d76dab6>]
 
 
 
