@@ -23,16 +23,9 @@ The Budget Tracker web application is designed to help users manage their financ
 
 ## Screenshots or Demo
 
-[Link to Live Demo](http://example.com)
+[Link to Live Demo]<http://example.com)](https://www.loom.com/share/86f4382fd01848688b8a6ed729433b46?sid=3b01c47d-2fa3-430e-8f9e-9c6a5d76dab6>
 
-![Screenshot](/path/to/screenshot.png)
 
-## Roadmap and Future Enhancements
-
-- Implement mobile compatibility for a seamless user experience across devices.
-- Enhance data visualization with interactive charts and graphs.
-<!-- - Integrate machine learning algorithms for personalized financial recommendations.
-- Implement notification system for alerts on budget limits and spending habits. -->
 
 ## Contact Information
 
