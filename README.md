@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-The Budget Tracker web application is designed to help users manage their finances effectively by tracking income, expenses, and budget allocations. The project aims to provide users with a user-friendly interface for organizing and monitoring their financial transactions, enabling better budgeting decisions and financial planning.
+The Budget Tracker web application is designed to help users manage their finances effectively by tracking income, expenses, and savings. The project aims to provide users with a user-friendly interface for organizing and monitoring their financial transactions, enabling better budgeting decisions and financial planning.
 
 ## Features and Functionality
 
@@ -10,8 +10,6 @@ The Budget Tracker web application is designed to help users manage their financ
 - **Dashboard Overview:** Provides a comprehensive summary of income, expenses, and budget status through charts and visualizations.
 - **Income Management:** Users can add, edit, and delete sources of income.
 - **Expense Tracking:** Enables users to categorize and track various expenses, with options to add, edit, and delete transactions.
-- **Budget Planning and Goal Setting:** Allows users to set budget limits for different expense categories and track progress towards financial goals.
-- **Reports and Analysis:** Generates reports and analytics to help users understand spending patterns and identify areas for improvement.
 - **Data Export and Backup:** Allows users to export transaction data and provides backup options to prevent data loss.
 
 ## Technologies Used
